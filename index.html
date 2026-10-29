@@ -13,9 +13,8 @@
             padding: 0;
         }
 
-        /* 실제 키오스크 사진 속 어둡고 세련된 배경 톤 */
         body {
-            background: #0b0f19;
+            background: #090d16;
             color: #ffffff;
             font-family: 'Pretendard Variable', 'Apple SD Gothic Neo', sans-serif;
             display: flex;
@@ -25,16 +24,15 @@
             overflow: hidden;
         }
 
-        /* 사진 속 키오스크 화면 비율과 다크 네이비 UI */
         .kiosk-container {
             width: 90%;
             max-width: 900px;
-            background: #111827;
-            border: 2px solid #1f2937;
-            border-radius: 30px;
-            padding: 50px 40px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 
-                        0 0 30px rgba(14, 165, 233, 0.1);
+            background: #141c2e;
+            border: 3px solid #22324f;
+            border-radius: 24px;
+            padding: 45px 40px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 
+                        0 0 40px rgba(52, 211, 153, 0.1);
             text-align: center;
             position: relative;
         }
@@ -42,7 +40,7 @@
         .screen { display: none; opacity: 0; }
         .screen.active { 
             display: block; 
-            animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+            animation: fadeUp 0.4s ease forwards; 
         }
 
         @keyframes fadeUp {
@@ -51,34 +49,27 @@
         }
 
         .main-title {
-            font-size: 42px;
+            font-size: 38px;
             font-weight: 800;
             color: #ffffff;
-            margin-bottom: 15px;
+            margin-bottom: 25px;
             letter-spacing: -1px;
         }
 
-        .sub-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #38bdf8; /* 사진 속 화면의 산뜻한 포인트 블루톤 */
-            margin-bottom: 35px;
-        }
-
-        /* 항공사 및 바코드 아이콘 버튼 컨테이너 */
+        /* 항공사 및 바코드 아이콘 버튼 그리드 */
         .icon-grid {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 15px;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
             flex-wrap: wrap;
         }
 
         .icon-btn {
-            background: #1f2937;
-            border: 2px solid #374151;
-            border-radius: 18px;
+            background: #1e293b;
+            border: 2px solid #334155;
+            border-radius: 16px;
             padding: 15px;
             font-size: 16px;
             font-weight: 600;
@@ -97,58 +88,45 @@
         .icon-btn svg {
             width: 32px;
             height: 32px;
-            fill: #38bdf8;
+            fill: #34d399;
         }
 
         .icon-btn:hover { 
-            background: #0ea5e9;
-            border-color: #0ea5e9;
-            color: white;
+            background: #34d399;
+            border-color: #34d399;
+            color: #0f172a;
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+            box-shadow: 0 10px 20px rgba(52, 211, 153, 0.3);
         }
 
         .icon-btn:hover svg {
-            fill: white;
+            fill: #0f172a;
         }
 
-        /* 실시간 카메라 바코드 스캔 영역 */
-        .camera-container {
+        /* 하단 보조배터리 거치 및 바코드 스캔 영역 */
+        .battery-tray-container {
             position: relative;
-            width: 280px;
-            height: 160px;
+            width: 320px;
+            height: 140px;
             margin: 0 auto;
-            background: #000;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 2px solid #374151;
+            background: #0f172a;
+            border-radius: 14px;
+            border: 2px solid #334155;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
-        #camera-feed {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+
+        .tray-icon {
+            font-size: 32px;
         }
-        .viewfinder {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 75%;
-            height: 55%;
-            border: 2px dashed rgba(56, 189, 248, 0.8);
-            border-radius: 10px;
-            pointer-events: none;
-        }
-        .camera-guide {
-            position: absolute;
-            bottom: 8px;
-            width: 100%;
-            color: #ffffff;
-            font-size: 13px;
+
+        .tray-guide {
+            color: #34d399;
+            font-size: 14px;
             font-weight: 600;
-            background: rgba(17, 24, 39, 0.8);
-            padding: 4px 0;
-            z-index: 2;
         }
 
         /* 시연용 테스트 버튼 */
@@ -156,57 +134,57 @@
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin-top: 40px;
+            margin-top: 35px;
         }
         .test-btn {
-            background: #1f2937;
-            color: #38bdf8;
-            border: 1.5px solid #374151;
-            padding: 15px 30px;
+            background: #1e293b;
+            color: #34d399;
+            border: 1.5px solid #334155;
+            padding: 14px 28px;
             font-size: 18px;
             font-weight: 600;
-            border-radius: 15px;
+            border-radius: 14px;
             cursor: pointer;
             transition: all 0.2s;
         }
-        .test-btn:hover { background: #374151; color: #ffffff; border-color: #0ea5e9; }
+        .test-btn:hover { background: #334155; color: #ffffff; border-color: #34d399; }
 
         .selected-airline-label {
             display: inline-block;
-            background: #1f2937;
-            color: #38bdf8;
-            border: 1px solid #374151;
-            padding: 10px 30px;
+            background: #1e293b;
+            color: #34d399;
+            border: 1px solid #334155;
+            padding: 8px 25px;
             border-radius: 30px;
             font-size: 22px;
             font-weight: 700;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         /* 로딩 스피너 */
         .loader {
-            width: 75px;
-            height: 75px;
-            border: 4px solid #1f2937;
-            border-top: 4px solid #0ea5e9;
+            width: 70px;
+            height: 70px;
+            border: 4px solid #1e293b;
+            border-top: 4px solid #34d399;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 30px auto;
+            margin: 0 auto 25px auto;
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
         .result-box {
-            background: #1f2937;
-            padding: 45px 35px;
+            background: #1e293b;
+            padding: 40px 30px;
             border-radius: 20px;
-            margin-bottom: 35px;
-            border: 1px solid #374151;
+            margin-bottom: 30px;
+            border: 1px solid #334155;
         }
         
         .action-info {
-            color: #9ca3af;
-            font-size: 17px;
-            margin-top: 20px;
+            color: #94a3b8;
+            font-size: 16px;
+            margin-top: 15px;
             display: block;
             font-weight: 500;
         }
@@ -217,35 +195,35 @@
             gap: 20px;
         }
         .home-btn, .consignment-btn {
-            background: #1f2937;
+            background: #1e293b;
             color: #ffffff;
-            border: 1.5px solid #374151;
-            padding: 16px 40px;
+            border: 1.5px solid #334155;
+            padding: 15px 35px;
             font-size: 18px;
             font-weight: 700;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s;
         }
-        .home-btn:hover { background: #374151; }
+        .home-btn:hover { background: #334155; }
         
         .consignment-btn {
-            background: #0ea5e9;
-            color: white;
+            background: #34d399;
+            color: #0f172a;
             border: none;
-            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+            box-shadow: 0 10px 20px rgba(52, 211, 153, 0.3);
         }
-        .consignment-btn:hover { background: #0284c7; }
+        .consignment-btn:hover { background: #10b981; }
     </style>
 </head>
 <body>
 
     <div class="kiosk-container">
 
-        <!-- [화면 1] 사진 레퍼런스 맞춤 첫 화면 -->
+        <!-- [화면 1] 사진 속 로봇 화면 레이아웃 (보조배터리를 올려주세요 & 항공사를 선택해주세요) -->
         <div id="screen-welcome" class="screen active">
             <div class="main-title">보조배터리를 올려주세요</div>
-            <div class="sub-title">항공사를 선택해주세요</div>
+            <div style="font-size: 20px; color: #94a3b8; margin-bottom: 20px; font-weight: 600;">항공사를 선택해주세요</div>
             
             <div class="icon-grid">
                 <button class="icon-btn" onclick="selectAirline('대한항공')">
@@ -270,19 +248,17 @@
                 </button>
             </div>
 
-            <!-- 카메라 바코드 스캔 영역 -->
-            <div class="camera-container">
-                <video id="camera-feed" autoplay playsinline></video>
-                <div class="viewfinder"></div>
-                <div class="camera-guide">티켓 바코드를 비춰주세요</div>
+            <!-- 하단 보조배터리 거치 안내 영역 (손그림 대신 보조배터리 아이콘 배치) -->
+            <div class="battery-tray-container">
+                <div class="tray-icon">🔋</div>
+                <div class="tray-guide">이곳에 보조배터리를 올려주세요</div>
             </div>
         </div>
 
         <!-- [화면 2] 배터리 규정 판독 대기 -->
         <div id="screen-battery" class="screen">
             <div class="selected-airline-label" id="display-airline">OO항공</div>
-            <div class="main-title" style="font-size: 36px;">배터리를 스캔하고 있습니다.</div>
-            <div class="sub-title">잠시만 기다려주세요.</div>
+            <div class="main-title" style="font-size: 34px;">배터리를 스캔하고 있습니다.</div>
             
             <!-- 시연용 테스트 버튼 -->
             <div class="test-btn-group">
@@ -294,15 +270,14 @@
         <!-- [화면 3] 판독 로딩 -->
         <div id="screen-loading" class="screen">
             <div class="loader"></div>
-            <div class="main-title" style="font-size: 30px;">배터리 규정을 확인하고 있습니다...</div>
-            <div class="sub-title">잠시만 기다려주세요.</div>
+            <div class="main-title" style="font-size: 28px;">배터리 규정을 확인하고 있습니다...</div>
         </div>
 
         <!-- [화면 4] 결과: 합격 (규정 맞음) -->
         <div id="screen-pass" class="screen">
             <div class="result-box">
-                <div class="main-title">이 배터리는 규정에 맞습니다.</div>
-                <div class="sub-title" style="margin-bottom: 0; color: #9ca3af; font-weight: normal; font-size: 20px;">
+                <div class="main-title" style="color: #34d399;">이 배터리는 규정에 맞습니다.</div>
+                <div style="font-size: 20px; color: #cbd5e1; font-weight: 500; line-height: 1.5;">
                     스티커를 배터리에 붙여주시고<br>파우치에 넣어주세요.
                 </div>
                 <span class="action-info">기기 하단에서 파우치와 스티커가 배출되었습니다.</span>
@@ -313,8 +288,8 @@
         <!-- [화면 5] 결과: 불합격 (위탁 서비스 유도) -->
         <div id="screen-fail" class="screen">
             <div class="result-box">
-                <div class="main-title">이 배터리는 기내에 반입할 수 없습니다.</div>
-                <div class="sub-title" style="margin-bottom: 0; color: #9ca3af; font-weight: normal; font-size: 20px;">
+                <div class="main-title" style="color: #f87171;">이 배터리는 기내에 반입할 수 없습니다.</div>
+                <div style="font-size: 20px; color: #cbd5e1; font-weight: 500; line-height: 1.5;">
                     보관함이나 위탁서비스를 이용해주세요.
                 </div>
             </div>
@@ -327,35 +302,10 @@
     </div>
 
     <script>
-        let cameraStream = null;
-
         function showScreen(screenId) {
             const screens = document.querySelectorAll('.screen');
             screens.forEach(screen => screen.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
-
-            if (screenId === 'screen-welcome') {
-                startCamera();
-            } else {
-                stopCamera(); 
-            }
-        }
-
-        async function startCamera() {
-            try {
-                cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-                document.getElementById('camera-feed').srcObject = cameraStream;
-            } catch (err) {
-                console.error("카메라 접근 불가:", err);
-                document.querySelector('.camera-guide').innerText = "카메라 권한을 허용해주세요.";
-            }
-        }
-
-        function stopCamera() {
-            if (cameraStream) {
-                cameraStream.getTracks().forEach(track => track.stop());
-                cameraStream = null;
-            }
         }
 
         function selectAirline(airlineName) {
@@ -379,10 +329,6 @@
             alert("물품 보관 및 위탁 서비스 접수 화면으로 이동합니다.");
             showScreen('screen-welcome');
         }
-
-        window.onload = function() {
-            startCamera();
-        };
     </script>
 
 </body>
