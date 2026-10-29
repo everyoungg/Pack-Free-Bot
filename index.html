@@ -2,188 +2,153 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <!-- 모바일 화면에서도 꽉 차게 보이도록 하는 설정 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pre-Pass : Pack-Free Bot</title>
     <style>
-        /* 기본 스타일 초기화 및 폰트 설정 */
-        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-        
-        * {
+        /* 외부 폰트 대신 모든 기기에 기본 설치된 깔끔한 폰트 사용 (오류 방지) */
+        body {
+            background-color: #1a1a2e;
+            color: #ffffff;
+            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Pretendard', sans-serif;
-        }
-
-        body {
-            background-color: #1a1a2e; /* 공항 키오스크에 어울리는 짙은 네이비 배경 */
-            color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
         }
 
         .kiosk-container {
-            width: 100%;
-            max-width: 1024px;
-            height: 768px;
+            width: 90%;
+            max-width: 900px;
             background-color: #16213e;
             border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            display: flex;
-            flex-direction: column;
             padding: 40px;
-            position: relative;
-        }
-
-        /* 상단 헤더 */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-            border-bottom: 2px solid #0f3460;
-            padding-bottom: 20px;
-        }
-
-        .header h1 {
-            font-size: 32px;
-            font-weight: 700;
-            color: #00d2ff;
-        }
-
-        .header .status {
-            font-size: 18px;
-            color: #a3a3a3;
-        }
-
-        /* 메인 콘텐츠 영역 */
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             text-align: center;
         }
 
+        .header {
+            border-bottom: 2px solid #0f3460;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #00d2ff;
+            margin: 0;
+            font-size: 32px;
+        }
+
+        #time-display {
+            color: #a3a3a3;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
         .instruction {
-            font-size: 42px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #e94560; /* 시선을 끄는 색상 */
+            font-size: 36px;
+            font-weight: bold;
+            color: #e94560;
+            margin-bottom: 15px;
         }
 
         .sub-instruction {
-            font-size: 28px;
+            font-size: 22px;
             color: #e0e0e0;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
-        /* 항공사 선택 버튼 그리드 */
+        /* 버튼들이 화면 크기에 맞춰 알아서 줄바꿈 되도록 설정 */
         .airline-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            width: 100%;
-            max-width: 800px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
         }
 
         .airline-btn {
             background-color: #0f3460;
-            border: 2px solid transparent;
-            border-radius: 15px;
-            padding: 30px 20px;
+            border: 2px solid #00d2ff;
+            border-radius: 12px;
+            padding: 25px 30px;
             font-size: 22px;
-            font-weight: 600;
+            font-weight: bold;
             color: white;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
+            width: 200px;
+            transition: 0.2s;
         }
 
         .airline-btn:hover, .airline-btn:active {
-            background-color: #e94560;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(233, 69, 96, 0.4);
+            background-color: #00d2ff;
+            color: #1a1a2e;
         }
 
-        /* 결과 화면 (처음엔 숨김) */
-        #result-screen, #loading-screen {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
+        #loading-screen, #result-screen {
+            display: none; /* 처음에는 숨겨둠 */
+        }
+
+        .spinner {
+            width: 70px;
+            height: 70px;
+            border: 7px solid #0f3460;
+            border-top: 7px solid #00d2ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 30px auto;
+        }
+
+        @keyframes spin { 
+            0% { transform: rotate(0deg); } 
+            100% { transform: rotate(360deg); } 
         }
 
         .result-title {
-            font-size: 48px;
+            font-size: 40px;
+            font-weight: bold;
             color: #00d2ff;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .result-desc {
-            font-size: 32px;
-            margin-bottom: 40px;
+            font-size: 26px;
             line-height: 1.5;
-            background: rgba(255,255,255,0.1);
+            background: #0f3460;
             padding: 30px;
             border-radius: 15px;
+            margin-bottom: 40px;
         }
 
         .action-btn {
-            background-color: #00d2ff;
-            color: #1a1a2e;
+            background-color: #e94560;
+            color: white;
             border: none;
             padding: 20px 40px;
-            font-size: 28px;
-            font-weight: 700;
+            font-size: 26px;
+            font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3);
-            transition: all 0.3s ease;
+            transition: 0.2s;
         }
 
         .action-btn:hover {
-            background-color: #00b8e6;
-            transform: scale(1.05);
-        }
-
-        /* 로딩 애니메이션 */
-        .spinner {
-            width: 80px;
-            height: 80px;
-            border: 8px solid rgba(255,255,255,0.1);
-            border-top: 8px solid #00d2ff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 30px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            background-color: #ff5c77;
         }
     </style>
 </head>
 <body>
 
     <div class="kiosk-container">
-        <!-- 헤더 영역 -->
+        <!-- 1. 공통 헤더 -->
         <div class="header">
             <h1>Pre-Pass : Pack-Free Bot</h1>
-            <div class="status" id="time-display">2026. 10. 30 10:00 AM</div>
+            <div id="time-display"></div>
         </div>
 
-        <!-- 1. 기본 화면 (항공사 선택) -->
-        <div class="main-content" id="home-screen">
+        <!-- 2. 기본 화면 (항공사 선택) -->
+        <div id="home-screen">
             <div class="instruction">보조배터리를 올려주세요</div>
             <div class="sub-instruction">판독을 위해 이용하실 항공사를 선택해주세요</div>
             
@@ -195,27 +160,27 @@
             </div>
         </div>
 
-        <!-- 2. AI 판독(로딩) 화면 -->
-        <div class="main-content" id="loading-screen">
+        <!-- 3. 로딩 화면 -->
+        <div id="loading-screen">
             <div class="spinner"></div>
-            <div class="instruction" id="loading-text">배터리 용량 및 단자를 판독 중입니다...</div>
-            <div class="sub-instruction">잠시만 기다려주세요</div>
+            <div class="instruction" id="loading-text">판독 중...</div>
+            <div class="sub-instruction">AI가 배터리 규격을 확인하고 있습니다</div>
         </div>
 
-        <!-- 3. 판독 결과 및 조치 안내 화면 -->
-        <div class="main-content" id="result-screen">
+        <!-- 4. 결과 화면 -->
+        <div id="result-screen">
             <div class="result-title">✔ 반입 가능 (조치 필요)</div>
             <div class="result-desc">
                 <strong>[단자 노출 감지]</strong><br>
                 절연테이프 부착이 필요합니다.<br>
-                <span style="font-size: 24px; color:#a3a3a3; margin-top:15px; display:block;">(아래 디스펜서에서 절연테이프가 배출되었습니다. 단자 위에 붙여주세요)</span>
+                <span style="font-size: 18px; color: #a3a3a3; display: block; margin-top: 15px;">(기기 하단에서 배출된 테이프를 단자 위에 붙여주세요)</span>
             </div>
             <button class="action-btn" onclick="issuePass()">디지털 검증 패스 받기</button>
         </div>
     </div>
 
     <script>
-        // 시간 표시 기능
+        // 1. 현재 시간 표시 기능
         function updateTime() {
             const now = new Date();
             document.getElementById('time-display').innerText = now.toLocaleString('ko-KR');
@@ -223,28 +188,11 @@
         setInterval(updateTime, 1000);
         updateTime();
 
-        // 스캔 시작 (항공사 버튼 클릭 시)
+        // 2. 항공사 버튼 클릭 시 작동하는 스캔 기능
         function startScan(airline) {
+            // 메인 화면 숨기고 로딩 화면 띄우기
             document.getElementById('home-screen').style.display = 'none';
-            document.getElementById('loading-screen').style.display = 'flex';
+            document.getElementById('loading-screen').style.display = 'block';
             
-            document.getElementById('loading-text').innerText = airline + ' 규정 연동 및 판독 중...';
-
-            // 2.5초 후 결과 화면으로 전환
-            setTimeout(() => {
-                document.getElementById('loading-screen').style.display = 'none';
-                document.getElementById('result-screen').style.display = 'flex';
-            }, 2500);
-        }
-
-        // 디지털 패스 발급 완료 (초기화)
-        function issuePass() {
-            alert("디지털 검증 패스가 발급되었습니다. 스티커를 부착 후 검색대로 이동해주세요!");
-            // 초기 화면으로 복귀
-            document.getElementById('result-screen').style.display = 'none';
-            document.getElementById('home-screen').style.display = 'flex';
-        }
-    </script>
-
-</body>
-</html>
+            // 선택한 항공사 이름 화면에 반영
+            document.getElementById('loading-text').innerText = airline
