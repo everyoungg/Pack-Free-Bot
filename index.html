@@ -63,7 +63,7 @@
             font-size: 22px;
             font-weight: 400;
             color: #0288d1;
-            margin-bottom: 45px;
+            margin-bottom: 35px;
             opacity: 0.8;
         }
 
@@ -71,20 +71,20 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
-            margin-bottom: 40px;
+            gap: 15px;
+            margin-bottom: 30px;
         }
         .airline-btn {
             background: rgba(255, 255, 255, 0.6);
             border: 1.5px solid #81d4fa;
             border-radius: 20px;
-            padding: 22px 35px;
-            font-size: 22px;
+            padding: 18px 30px;
+            font-size: 20px;
             font-weight: 600;
             color: #0277bd;
             cursor: pointer;
-            width: calc(50% - 20px);
-            max-width: 220px;
+            width: calc(50% - 15px);
+            max-width: 200px;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
         }
@@ -98,11 +98,11 @@
 
         .camera-container {
             position: relative;
-            width: 320px;
-            height: 220px;
+            width: 280px;
+            height: 180px;
             margin: 0 auto;
             background: rgba(225, 245, 254, 0.5);
-            border-radius: 24px;
+            border-radius: 20px;
             overflow: hidden;
             box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
             border: 2px solid rgba(255,255,255,0.8);
@@ -126,10 +126,10 @@
         }
         .camera-guide {
             position: absolute;
-            bottom: 15px;
+            bottom: 10px;
             width: 100%;
             color: #01579b;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             z-index: 2;
         }
@@ -228,7 +228,7 @@
         <!-- [화면 1] 첫 화면: 보조배터리를 올려주세요 (항공사 선택 및 바코드 인식) -->
         <div id="screen-welcome" class="screen active">
             <div class="title-text">보조배터리를 올려주세요.</div>
-            <div class="sub-text" style="margin-bottom: 30px;">항공사 선택하기 또는 아래에 티켓 바코드를 인식해주세요.</div>
+            <div class="sub-text">항공사 선택하기 또는 아래에 티켓 바코드를 인식해주세요.</div>
             
             <div class="airline-grid">
                 <button class="airline-btn" onclick="selectAirline('대한항공')">대한항공</button>
@@ -270,9 +270,9 @@
             <div class="result-box">
                 <div class="title-text">이 배터리는 규정에 맞습니다.</div>
                 <div class="sub-text" style="margin-bottom: 0;">
-                    디지털 검증패스 QR을 배터리에 붙여주시고<br>지퍼백에 넣어주세요.
+                    디지털 검증패스 QR을 배터리 충전 단자에 붙여주시고<br>파우치에 넣어주세요.
                 </div>
-                <span class="action-info">기기 하단에서 지퍼백과 스티커가 배출되었습니다.</span>
+                <span class="action-info">기기 하단에서 파우치와 스티커가 배출되었습니다.</span>
             </div>
             <button class="home-btn" onclick="showScreen('screen-welcome')">처음으로 돌아가기</button>
         </div>
@@ -347,7 +347,6 @@
             showScreen('screen-welcome');
         }
 
-        // 페이지 로드 시 카메라 시작
         window.onload = function() {
             startCamera();
         };
