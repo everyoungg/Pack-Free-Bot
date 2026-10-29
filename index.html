@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pre-Pass : Pack-Free Bot</title>
     <style>
+        /* 하늘색(Sky Blue) 라이트 테마 적용 */
         body {
-            background-color: #1a1a2e;
-            color: #ffffff;
+            background-color: #e1f5fe; /* 부드러운 하늘색 배경 */
+            color: #333333; /* 가독성 좋은 진한 회색 텍스트 */
             font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
             margin: 0;
             padding: 0;
@@ -20,42 +21,36 @@
         .kiosk-container {
             width: 90%;
             max-width: 900px;
-            background-color: #16213e;
+            background-color: #ffffff; /* 키오스크 기기는 깔끔한 화이트 */
             border-radius: 20px;
             padding: 50px 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 35px rgba(2, 119, 189, 0.15); /* 하늘색 톤의 그림자 */
             text-align: center;
             position: relative;
+            border: 2px solid #b3e5fc;
         }
 
-        /* 모든 화면을 기본적으로 숨김 처리 */
-        .screen {
-            display: none;
-        }
-
-        /* 활성화된 화면만 보여줌 */
-        .screen.active {
-            display: block;
-        }
+        .screen { display: none; }
+        .screen.active { display: block; }
 
         .title-text {
             font-size: 38px;
             font-weight: bold;
-            color: #00d2ff;
+            color: #0277bd; /* 메인 테마 컬러 (진한 하늘색/파란색) */
             margin-bottom: 20px;
             line-height: 1.4;
         }
 
         .sub-text {
             font-size: 24px;
-            color: #e0e0e0;
+            color: #555555;
             margin-bottom: 40px;
             line-height: 1.5;
         }
 
         /* 1. 시작 버튼 */
         .start-btn {
-            background-color: #e94560;
+            background-color: #03a9f4; /* 하늘색 포인트 */
             color: white;
             border: none;
             padding: 25px 60px;
@@ -65,8 +60,9 @@
             cursor: pointer;
             transition: 0.2s;
             margin-top: 20px;
+            box-shadow: 0 10px 20px rgba(3, 169, 244, 0.3);
         }
-        .start-btn:hover { background-color: #ff5c77; transform: scale(1.05); }
+        .start-btn:hover { background-color: #0288d1; transform: scale(1.05); }
 
         /* 2. 항공사 버튼 그리드 */
         .airline-grid {
@@ -77,31 +73,57 @@
             margin-bottom: 30px;
         }
         .airline-btn {
-            background-color: #0f3460;
-            border: 2px solid #00d2ff;
+            background-color: #ffffff;
+            border: 2px solid #4fc3f7;
             border-radius: 12px;
             padding: 20px 30px;
             font-size: 22px;
             font-weight: bold;
-            color: white;
+            color: #0277bd;
             cursor: pointer;
             width: 200px;
             transition: 0.2s;
         }
-        .airline-btn:hover { background-color: #00d2ff; color: #1a1a2e; }
+        .airline-btn:hover { background-color: #e1f5fe; color: #01579b; border-color: #0288d1; }
 
-        .barcode-box {
-            background-color: rgba(255,255,255,0.05);
-            border: 2px dashed #a3a3a3;
-            border-radius: 15px;
-            padding: 20px;
-            color: #a3a3a3;
-            font-size: 20px;
+        /* 3. 카메라 (바코드 스캐너) 영역 */
+        .camera-container {
+            position: relative;
+            width: 300px;
+            height: 200px;
             margin: 0 auto;
-            width: 60%;
+            background-color: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 3px solid #81d4fa;
+        }
+        #camera-feed {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .viewfinder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 60%;
+            border: 2px dashed rgba(255, 255, 255, 0.7);
+            pointer-events: none;
+        }
+        .camera-guide {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            z-index: 2;
         }
 
-        /* 3. 배터리 테스트 버튼 */
+        /* 배터리 테스트 버튼 */
         .test-btn-group {
             display: flex;
             justify-content: center;
@@ -116,59 +138,68 @@
             font-size: 20px;
             border-radius: 10px;
             cursor: pointer;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
         }
-        .test-btn.fail { background-color: #f44336; }
+        .test-btn.fail { background-color: #f44336; box-shadow: 0 5px 15px rgba(244, 67, 54, 0.3); }
 
-        /* 선택된 항공사 표시 라벨 */
         .selected-airline-label {
             display: inline-block;
-            background-color: #00d2ff;
-            color: #1a1a2e;
-            padding: 5px 20px;
-            border-radius: 20px;
+            background-color: #e1f5fe;
+            color: #0277bd;
+            border: 2px solid #81d4fa;
+            padding: 8px 25px;
+            border-radius: 30px;
             font-size: 24px;
             font-weight: bold;
             margin-bottom: 20px;
         }
 
-        /* 로딩 스피너 */
+        /* 로딩 스피너 (하늘색 테마) */
         .spinner {
             width: 70px;
             height: 70px;
-            border: 7px solid #0f3460;
-            border-top: 7px solid #00d2ff;
+            border: 7px solid #e1f5fe;
+            border-top: 7px solid #03a9f4;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 0 auto 30px auto;
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* 결과 화면 공통 */
+        /* 결과 화면 박스 */
         .result-box {
-            background: #0f3460;
+            background: #f9f9f9;
             padding: 40px 30px;
             border-radius: 15px;
             margin-bottom: 40px;
         }
-        .result-box.pass { border: 3px solid #00d2ff; }
-        .result-box.fail { border: 3px solid #e94560; }
+        .result-box.pass { border: 4px solid #4CAF50; background: #f1f8e9; }
+        .result-box.fail { border: 4px solid #f44336; background: #ffebee; }
         
         .action-info {
-            color: #a3a3a3;
+            color: #777777;
             font-size: 20px;
             margin-top: 20px;
             display: block;
         }
 
-        .home-btn {
-            background-color: transparent;
-            color: #a3a3a3;
-            border: 2px solid #a3a3a3;
+        .home-btn, .consignment-btn {
+            background-color: white;
+            color: #555;
+            border: 2px solid #ccc;
             padding: 15px 40px;
             font-size: 20px;
             border-radius: 30px;
             cursor: pointer;
+            font-weight: bold;
         }
+        .consignment-btn {
+            background-color: #ff9800; /* 위탁서비스 강조용 오렌지색 */
+            color: white;
+            border: none;
+            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3);
+        }
+        .consignment-btn:hover { background-color: #f57c00; }
     </style>
 </head>
 <body>
@@ -181,9 +212,9 @@
             <button class="start-btn" onclick="showScreen('screen-airline')">시작하기</button>
         </div>
 
-        <!-- [화면 2] 항공사 선택 및 바코드 인식 -->
+        <!-- [화면 2] 항공사 선택 및 바코드 인식(카메라) -->
         <div id="screen-airline" class="screen">
-            <div class="title-text">항공사 선택하기 또는<br>아래 바코드 인식란에 티켓을 인식해주세요.</div>
+            <div class="title-text" style="font-size: 32px;">항공사 선택하기 또는<br>아래 바코드 인식란에 티켓을 인식해주세요.</div>
             
             <div class="airline-grid">
                 <button class="airline-btn" onclick="selectAirline('대한항공')">대한항공</button>
@@ -192,8 +223,11 @@
                 <button class="airline-btn" onclick="selectAirline('진에어')">진에어</button>
             </div>
 
-            <div class="barcode-box">
-                [ 🎫 탑승권 바코드 스캔 영역 ]
+            <!-- 카메라 바코드 스캔 영역 -->
+            <div class="camera-container">
+                <video id="camera-feed" autoplay playsinline></video>
+                <div class="viewfinder"></div>
+                <div class="camera-guide">이곳에 탑승권 바코드를 비춰주세요</div>
             </div>
         </div>
 
@@ -202,10 +236,10 @@
             <div class="selected-airline-label" id="display-airline">OO항공</div>
             <div class="title-text" style="font-size: 42px;">아래에 보조배터리를 올려주세요.</div>
             
-            <!-- 발표 시연용 컨트롤 버튼 (실제 로봇은 센서로 작동하지만, 데모를 위해 버튼 클릭) -->
+            <!-- 시연용 컨트롤 버튼 -->
             <div class="test-btn-group">
-                <button class="test-btn" onclick="startScan(true)">테스트: 규정 맞음(합격) 센서 인식</button>
-                <button class="test-btn fail" onclick="startScan(false)">테스트: 규정 초과(불합격) 센서 인식</button>
+                <button class="test-btn" onclick="startScan(true)">테스트: 규정 맞음(합격)</button>
+                <button class="test-btn fail" onclick="startScan(false)">테스트: 규정 초과(불합격)</button>
             </div>
         </div>
 
@@ -218,7 +252,7 @@
         <!-- [화면 5] 결과: 합격 (규정 맞음) -->
         <div id="screen-pass" class="screen">
             <div class="result-box pass">
-                <div class="title-text" style="color: #00d2ff;">이 배터리는 규정에 맞습니다.</div>
+                <div class="title-text" style="color: #2e7d32;">이 배터리는 규정에 맞습니다.</div>
                 <div class="sub-text" style="margin-bottom: 0;">
                     디지털 검증패스 QR을 배터리에 붙여주시고<br>지퍼백에 넣어주세요.
                 </div>
@@ -227,29 +261,55 @@
             <button class="home-btn" onclick="showScreen('screen-welcome')">처음으로 돌아가기</button>
         </div>
 
-        <!-- [화면 6] 결과: 불합격 (규정 위반) -->
+        <!-- [화면 6] 결과: 불합격 (위탁 서비스 유도) -->
         <div id="screen-fail" class="screen">
             <div class="result-box fail">
-                <div class="title-text" style="color: #e94560;">이 배터리는 기내에 반입할 수 없습니다.</div>
+                <div class="title-text" style="color: #c62828;">이 배터리는 기내에 반입할 수 없습니다.</div>
                 <div class="sub-text" style="margin-bottom: 0;">
                     보관함이나 위탁서비스를 이용해주세요.
                 </div>
-                <span class="action-info">(화면 하단 위탁 서비스 안내 연동)</span>
             </div>
-            <button class="home-btn" onclick="showScreen('screen-welcome')">처음으로 돌아가기</button>
+            <!-- 요청하신 버튼 변경: 위탁서비스 이용하기 -->
+            <button class="consignment-btn" onclick="goToConsignment()">위탁서비스 이용하기</button>
         </div>
 
     </div>
 
     <script>
-        // 특정 화면만 보여주는 공통 함수
+        let cameraStream = null;
+
+        // 화면 전환 함수
         function showScreen(screenId) {
-            // 모든 스크린에서 active 클래스 제거 (숨김)
             const screens = document.querySelectorAll('.screen');
             screens.forEach(screen => screen.classList.remove('active'));
-            
-            // 요청한 스크린에만 active 클래스 추가 (보여줌)
             document.getElementById(screenId).classList.add('active');
+
+            // 화면 2(바코드 스캔) 진입 시 카메라 켜기
+            if (screenId === 'screen-airline') {
+                startCamera();
+            } else {
+                stopCamera(); // 다른 화면으로 가면 카메라 끄기 (배터리 절약 및 프라이버시)
+            }
+        }
+
+        // 카메라 시작 함수
+        async function startCamera() {
+            try {
+                // 스마트폰의 경우 후면 카메라를 우선 호출
+                cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+                document.getElementById('camera-feed').srcObject = cameraStream;
+            } catch (err) {
+                console.error("카메라 접근 불가:", err);
+                document.querySelector('.camera-guide').innerText = "카메라 권한을 허용해주세요.";
+            }
+        }
+
+        // 카메라 종료 함수
+        function stopCamera() {
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(track => track.stop());
+                cameraStream = null;
+            }
         }
 
         // 항공사 선택 완료 시
@@ -258,18 +318,24 @@
             showScreen('screen-battery');
         }
 
-        // 배터리를 올려두었을 때 (시연용 버튼 클릭 시 작동)
+        // 배터리 올렸을 때 판독 시작
         function startScan(isPass) {
             showScreen('screen-loading');
 
-            // 2.5초 뒤에 결과 화면 표시
             setTimeout(() => {
-                if (isPass === true) {
-                    showScreen('screen-pass'); // 규정에 맞음
+                if (isPass) {
+                    showScreen('screen-pass');
                 } else {
-                    showScreen('screen-fail'); // 반입 불가
+                    showScreen('screen-fail');
                 }
             }, 2500);
+        }
+
+        // 위탁서비스 이용하기 버튼 기능
+        function goToConsignment() {
+            alert("물품 보관 및 위탁 서비스 접수 화면으로 이동합니다.");
+            // 안내 후 처음 화면으로 리셋
+            showScreen('screen-welcome');
         }
     </script>
 
