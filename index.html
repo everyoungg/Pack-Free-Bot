@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pre-Pass : Premium Bot</title>
     <style>
-        /* 프리미엄 폰트 설정 및 기본화 */
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css');
         
         * {
@@ -14,7 +13,6 @@
             padding: 0;
         }
 
-        /* 고급스러운 은은한 하늘색 그라데이션 배경 */
         body {
             background: linear-gradient(135deg, #f0f8ff 0%, #e1f5fe 50%, #b3e5fc 100%);
             color: #01579b;
@@ -26,7 +24,6 @@
             overflow: hidden;
         }
 
-        /* 글래스모피즘(투명 유리 느낌) 키오스크 컨테이너 */
         .kiosk-container {
             width: 90%;
             max-width: 900px;
@@ -42,7 +39,6 @@
             position: relative;
         }
 
-        /* 부드러운 화면 전환 애니메이션 */
         .screen { display: none; opacity: 0; }
         .screen.active { 
             display: block; 
@@ -54,7 +50,6 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* 텍스트 타이포그래피 */
         .title-text {
             font-size: 42px;
             font-weight: 800;
@@ -72,26 +67,6 @@
             opacity: 0.8;
         }
 
-        /* 프리미엄 시작 버튼 (입체적인 그라데이션과 빛 번짐) */
-        .start-btn {
-            background: linear-gradient(135deg, #4fc3f7 0%, #0288d1 100%);
-            color: white;
-            border: none;
-            padding: 22px 70px;
-            font-size: 28px;
-            font-weight: 700;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 15px 30px rgba(2, 136, 209, 0.3);
-            margin-top: 20px;
-        }
-        .start-btn:hover { 
-            transform: translateY(-3px); 
-            box-shadow: 0 20px 40px rgba(2, 136, 209, 0.4); 
-        }
-
-        /* 항공사 선택 버튼 (미니멀하고 깔끔한 라인) */
         .airline-grid {
             display: flex;
             flex-wrap: wrap;
@@ -121,7 +96,6 @@
             transform: translateY(-2px);
         }
 
-        /* 세련된 카메라 프레임 */
         .camera-container {
             position: relative;
             width: 320px;
@@ -160,7 +134,6 @@
             z-index: 2;
         }
 
-        /* 시연용 테스트 버튼 (고급스러움을 해치지 않는 투명 버튼) */
         .test-btn-group {
             display: flex;
             justify-content: center;
@@ -192,7 +165,6 @@
             box-shadow: 0 5px 15px rgba(2, 119, 189, 0.08);
         }
 
-        /* 고급스러운 로딩 애니메이션 */
         .loader {
             width: 80px;
             height: 80px;
@@ -204,7 +176,6 @@
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* 결과 화면 박스 */
         .result-box {
             background: rgba(255, 255, 255, 0.6);
             padding: 50px 40px;
@@ -223,7 +194,6 @@
             font-weight: 500;
         }
 
-        /* 하단 액션 버튼 */
         .action-btns {
             display: flex;
             justify-content: center;
@@ -255,17 +225,10 @@
 
     <div class="kiosk-container">
 
-        <!-- [화면 1] 인사말 및 시작 -->
+        <!-- [화면 1] 첫 화면: 보조배터리를 올려주세요 (항공사 선택 및 바코드 인식) -->
         <div id="screen-welcome" class="screen active">
-            <div class="title-text">안녕하세요.<br>보조배터리 반입 확인 로봇입니다.</div>
-            <div class="sub-text">Pre-Pass : Pack-Free Bot</div>
-            <button class="start-btn" onclick="showScreen('screen-airline')">시작하기</button>
-        </div>
-
-        <!-- [화면 2] 항공사 선택 및 바코드 인식(카메라) -->
-        <div id="screen-airline" class="screen">
-            <div class="title-text" style="font-size: 30px;">항공사 선택하기 또는<br>아래에 티켓 바코드를 인식해주세요.</div>
-            <div class="sub-text" style="margin-bottom: 30px;">원활한 판독을 위해 규정을 확인합니다.</div>
+            <div class="title-text">보조배터리를 올려주세요.</div>
+            <div class="sub-text" style="margin-bottom: 30px;">항공사 선택하기 또는 아래에 티켓 바코드를 인식해주세요.</div>
             
             <div class="airline-grid">
                 <button class="airline-btn" onclick="selectAirline('대한항공')">대한항공</button>
@@ -282,27 +245,27 @@
             </div>
         </div>
 
-        <!-- [화면 3] 배터리 올리기 -->
+        <!-- [화면 2] 배터리 규정 판독 대기 -->
         <div id="screen-battery" class="screen">
             <div class="selected-airline-label" id="display-airline">OO항공</div>
-            <div class="title-text" style="font-size: 38px;">아래에 보조배터리를 올려주세요.</div>
-            <div class="sub-text">로봇이 배터리 용량과 규격을 자동으로 확인합니다.</div>
+            <div class="title-text" style="font-size: 38px;">배터리를 스캔하고 있습니다.</div>
+            <div class="sub-text">잠시만 기다려주세요.</div>
             
-            <!-- 시연용 컨트롤 버튼 (미니멀 디자인) -->
+            <!-- 시연용 테스트 버튼 -->
             <div class="test-btn-group">
                 <button class="test-btn" onclick="startScan(true)">테스트: 반입 가능</button>
                 <button class="test-btn" onclick="startScan(false)">테스트: 반입 불가</button>
             </div>
         </div>
 
-        <!-- [화면 4] 판독 로딩 -->
+        <!-- [화면 3] 판독 로딩 -->
         <div id="screen-loading" class="screen">
             <div class="loader"></div>
             <div class="title-text" style="font-size: 32px;">배터리 규정을 확인하고 있습니다...</div>
             <div class="sub-text">잠시만 기다려주세요.</div>
         </div>
 
-        <!-- [화면 5] 결과: 합격 (규정 맞음) -->
+        <!-- [화면 4] 결과: 합격 (규정 맞음) -->
         <div id="screen-pass" class="screen">
             <div class="result-box">
                 <div class="title-text">이 배터리는 규정에 맞습니다.</div>
@@ -314,7 +277,7 @@
             <button class="home-btn" onclick="showScreen('screen-welcome')">처음으로 돌아가기</button>
         </div>
 
-        <!-- [화면 6] 결과: 불합격 (위탁 서비스 유도) -->
+        <!-- [화면 5] 결과: 불합격 (위탁 서비스 유도) -->
         <div id="screen-fail" class="screen">
             <div class="result-box">
                 <div class="title-text">이 배터리는 기내에 반입할 수 없습니다.</div>
@@ -338,7 +301,7 @@
             screens.forEach(screen => screen.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
 
-            if (screenId === 'screen-airline') {
+            if (screenId === 'screen-welcome') {
                 startCamera();
             } else {
                 stopCamera(); 
@@ -383,6 +346,11 @@
             alert("물품 보관 및 위탁 서비스 접수 화면으로 이동합니다.");
             showScreen('screen-welcome');
         }
+
+        // 페이지 로드 시 카메라 시작
+        window.onload = function() {
+            startCamera();
+        };
     </script>
 
 </body>
