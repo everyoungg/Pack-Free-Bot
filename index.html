@@ -13,9 +13,10 @@
             padding: 0;
         }
 
+        /* 실제 키오스크 사진 속 어둡고 세련된 배경 톤 */
         body {
-            background: linear-gradient(135deg, #f0f8ff 0%, #e1f5fe 50%, #b3e5fc 100%);
-            color: #01579b;
+            background: #0b0f19;
+            color: #ffffff;
             font-family: 'Pretendard Variable', 'Apple SD Gothic Neo', sans-serif;
             display: flex;
             justify-content: center;
@@ -24,17 +25,16 @@
             overflow: hidden;
         }
 
+        /* 사진 속 키오스크 화면 비율과 다크 네이비 UI */
         .kiosk-container {
             width: 90%;
             max-width: 900px;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            border-radius: 35px;
+            background: #111827;
+            border: 2px solid #1f2937;
+            border-radius: 30px;
             padding: 50px 40px;
-            box-shadow: 0 30px 60px rgba(2, 119, 189, 0.08), 
-                        inset 0 0 20px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 
+                        0 0 30px rgba(14, 165, 233, 0.1);
             text-align: center;
             position: relative;
         }
@@ -42,28 +42,27 @@
         .screen { display: none; opacity: 0; }
         .screen.active { 
             display: block; 
-            animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+            animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
         }
 
         @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(15px); }
+            0% { opacity: 0; transform: translateY(10px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* 이미지 레퍼런스에 맞춘 메인 타이틀 및 서브 타이틀 스타일 */
         .main-title {
-            font-size: 44px;
+            font-size: 42px;
             font-weight: 800;
-            color: #0277bd;
-            margin-bottom: 25px;
+            color: #ffffff;
+            margin-bottom: 15px;
             letter-spacing: -1px;
         }
 
         .sub-title {
             font-size: 24px;
-            font-weight: 700;
-            color: #0288d1;
-            margin-bottom: 20px;
+            font-weight: 600;
+            color: #38bdf8; /* 사진 속 화면의 산뜻한 포인트 블루톤 */
+            margin-bottom: 35px;
         }
 
         /* 항공사 및 바코드 아이콘 버튼 컨테이너 */
@@ -77,41 +76,36 @@
         }
 
         .icon-btn {
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid #81d4fa;
-            border-radius: 16px;
-            padding: 15px 20px;
-            font-size: 18px;
+            background: #1f2937;
+            border: 2px solid #374151;
+            border-radius: 18px;
+            padding: 15px;
+            font-size: 16px;
             font-weight: 600;
-            color: #0277bd;
+            color: #ffffff;
             cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             width: 110px;
             height: 110px;
             justify-content: center;
             transition: all 0.2s ease;
-            box-shadow: 0 8px 20px rgba(3, 169, 244, 0.1);
-        }
-
-        .icon-btn span {
-            font-size: 15px;
         }
 
         .icon-btn svg {
             width: 32px;
             height: 32px;
-            fill: #0277bd;
+            fill: #38bdf8;
         }
 
         .icon-btn:hover { 
-            background: linear-gradient(135deg, #4fc3f7 0%, #03a9f4 100%);
+            background: #0ea5e9;
+            border-color: #0ea5e9;
             color: white;
-            border-color: transparent;
             transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(3, 169, 244, 0.25);
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
         }
 
         .icon-btn:hover svg {
@@ -121,14 +115,13 @@
         /* 실시간 카메라 바코드 스캔 영역 */
         .camera-container {
             position: relative;
-            width: 260px;
+            width: 280px;
             height: 160px;
             margin: 0 auto;
-            background: #e1f5fe;
+            background: #000;
             border-radius: 16px;
             overflow: hidden;
-            border: 2px solid #81d4fa;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+            border: 2px solid #374151;
         }
         #camera-feed {
             width: 100%;
@@ -142,7 +135,7 @@
             transform: translate(-50%, -50%);
             width: 75%;
             height: 55%;
-            border: 2px dashed rgba(2, 119, 189, 0.6);
+            border: 2px dashed rgba(56, 189, 248, 0.8);
             border-radius: 10px;
             pointer-events: none;
         }
@@ -150,11 +143,11 @@
             position: absolute;
             bottom: 8px;
             width: 100%;
-            color: #01579b;
+            color: #ffffff;
             font-size: 13px;
             font-weight: 600;
-            background: rgba(255, 255, 255, 0.85);
-            padding: 3px 0;
+            background: rgba(17, 24, 39, 0.8);
+            padding: 4px 0;
             z-index: 2;
         }
 
@@ -166,9 +159,9 @@
             margin-top: 40px;
         }
         .test-btn {
-            background: rgba(255, 255, 255, 0.7);
-            color: #0288d1;
-            border: 1.5px solid #4fc3f7;
+            background: #1f2937;
+            color: #38bdf8;
+            border: 1.5px solid #374151;
             padding: 15px 30px;
             font-size: 18px;
             font-weight: 600;
@@ -176,47 +169,45 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        .test-btn:hover { background: #e1f5fe; border-color: #0277bd; }
+        .test-btn:hover { background: #374151; color: #ffffff; border-color: #0ea5e9; }
 
         .selected-airline-label {
             display: inline-block;
-            background: linear-gradient(135deg, #e1f5fe 0%, #b3e5fc 100%);
-            color: #01579b;
+            background: #1f2937;
+            color: #38bdf8;
+            border: 1px solid #374151;
             padding: 10px 30px;
             border-radius: 30px;
             font-size: 22px;
             font-weight: 700;
             margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(2, 119, 189, 0.08);
         }
 
         /* 로딩 스피너 */
         .loader {
             width: 75px;
             height: 75px;
-            border: 4px solid rgba(129, 212, 250, 0.3);
-            border-top: 4px solid #03a9f4;
+            border: 4px solid #1f2937;
+            border-top: 4px solid #0ea5e9;
             border-radius: 50%;
-            animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            animation: spin 1s linear infinite;
             margin: 0 auto 30px auto;
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
         .result-box {
-            background: rgba(255, 255, 255, 0.8);
+            background: #1f2937;
             padding: 45px 35px;
-            border-radius: 24px;
+            border-radius: 20px;
             margin-bottom: 35px;
-            border: 1px solid rgba(255,255,255,0.9);
-            box-shadow: 0 20px 40px rgba(2, 119, 189, 0.05);
+            border: 1px solid #374151;
         }
         
         .action-info {
-            color: #0288d1;
+            color: #9ca3af;
             font-size: 17px;
             margin-top: 20px;
             display: block;
-            opacity: 0.8;
             font-weight: 500;
         }
 
@@ -226,9 +217,9 @@
             gap: 20px;
         }
         .home-btn, .consignment-btn {
-            background: transparent;
-            color: #0277bd;
-            border: 2px solid #81d4fa;
+            background: #1f2937;
+            color: #ffffff;
+            border: 1.5px solid #374151;
             padding: 16px 40px;
             font-size: 18px;
             font-weight: 700;
@@ -236,22 +227,22 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-        .home-btn:hover { background: rgba(129, 212, 250, 0.1); }
+        .home-btn:hover { background: #374151; }
         
         .consignment-btn {
-            background: linear-gradient(135deg, #4fc3f7 0%, #0288d1 100%);
+            background: #0ea5e9;
             color: white;
             border: none;
-            box-shadow: 0 10px 20px rgba(2, 136, 209, 0.2);
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
         }
-        .consignment-btn:hover { transform: translateY(-2px); box-shadow: 0 15px 25px rgba(2, 136, 209, 0.3); }
+        .consignment-btn:hover { background: #0284c7; }
     </style>
 </head>
 <body>
 
     <div class="kiosk-container">
 
-        <!-- [화면 1] 이미지 레퍼런스 맞춤 첫 화면: 보조배터리를 올려주세요 & 항공사를 선택해주세요 -->
+        <!-- [화면 1] 사진 레퍼런스 맞춤 첫 화면 -->
         <div id="screen-welcome" class="screen active">
             <div class="main-title">보조배터리를 올려주세요</div>
             <div class="sub-title">항공사를 선택해주세요</div>
@@ -311,7 +302,7 @@
         <div id="screen-pass" class="screen">
             <div class="result-box">
                 <div class="main-title">이 배터리는 규정에 맞습니다.</div>
-                <div class="sub-title" style="margin-bottom: 0;">
+                <div class="sub-title" style="margin-bottom: 0; color: #9ca3af; font-weight: normal; font-size: 20px;">
                     스티커를 배터리에 붙여주시고<br>파우치에 넣어주세요.
                 </div>
                 <span class="action-info">기기 하단에서 파우치와 스티커가 배출되었습니다.</span>
@@ -323,7 +314,7 @@
         <div id="screen-fail" class="screen">
             <div class="result-box">
                 <div class="main-title">이 배터리는 기내에 반입할 수 없습니다.</div>
-                <div class="sub-title" style="margin-bottom: 0;">
+                <div class="sub-title" style="margin-bottom: 0; color: #9ca3af; font-weight: normal; font-size: 20px;">
                     보관함이나 위탁서비스를 이용해주세요.
                 </div>
             </div>
