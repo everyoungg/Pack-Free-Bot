@@ -135,3 +135,455 @@
         .test-btn {
             background: var(--panel);
             color: var(--text);
+            border: 1px solid var(--panel-line);
+            padding: 14px 25px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: inherit;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .test-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+        .selected-airline-label {
+            display: inline-block;
+            background: var(--panel);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .loader {
+            width: 70px; height: 70px;
+            border: 4px solid rgba(143, 211, 255, 0.2);
+            border-top: 4px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 30px auto;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .result-box {
+            background: var(--panel);
+            padding: 40px 30px;
+            border-radius: 24px;
+            margin-bottom: 30px;
+            border: 1px solid var(--panel-line);
+        }
+        #screen-fail .title-text .hl { color: var(--danger); }
+        .action-info {
+            color: var(--glow);
+            font-size: 17px;
+            margin-top: 20px;
+            display: block;
+            font-weight: 500;
+        }
+
+        /* 3D 애니메이션 스테이지 */
+        .animation-stage {
+            width: 100%;
+            height: 250px;
+            background: radial-gradient(circle at center, #1b263b 0%, #0d1b2a 100%);
+            border-radius: 18px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--panel-line);
+            perspective: 900px;
+        }
+
+        /* 1. 올화이트 배터리 + 리얼 단자 모션 */
+        .powerbank-3d {
+            width: 230px;
+            height: 110px;
+            background: linear-gradient(145deg, #ffffff 0%, #d8e2ed 100%);
+            border-radius: 16px;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            padding-left: 20px;
+            transform: rotateX(8deg) rotateY(-8deg);
+        }
+        
+        .ports-area {
+            position: absolute;
+            right: 18px;
+            width: 82px;
+            height: 58px;
+            border: 3px solid #ff4d4d;
+            border-radius: 10px;
+            background: #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            box-shadow: inset 0 3px 6px rgba(0,0,0,0.4), 0 0 15px rgba(255, 77, 77, 0.4);
+        }
+        .real-usb-port {
+            width: 50px;
+            height: 14px;
+            background: #0f172a;
+            border-radius: 2px;
+            position: relative;
+            box-shadow: inset 0 2px 3px rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            padding: 0 4px;
+        }
+        .real-usb-port::after {
+            content: '';
+            width: 100%;
+            height: 2px;
+            background: #38bdf8;
+            border-radius: 1px;
+        }
+        .real-c-port {
+            width: 26px;
+            height: 8px;
+            background: #0f172a;
+            border-radius: 3px;
+            box-shadow: inset 0 2px 3px rgba(0,0,0,0.8);
+        }
+
+        /* 깔끔하게 내려앉는 절연 테이프 */
+        .smooth-tape {
+            position: absolute;
+            right: 15px;
+            top: -70px;
+            width: 88px;
+            height: 64px;
+            background: linear-gradient(135deg, #262626 0%, #0a0a0a 100%);
+            border-radius: 5px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+            opacity: 0;
+            animation: cleanTapeAnim 3s infinite ease-in-out;
+            z-index: 10;
+        }
+        @keyframes cleanTapeAnim {
+            0% { transform: translateY(-70px) scale(1.1); opacity: 0; }
+            20% { opacity: 0; }
+            35% { transform: translateY(66px) scale(1); opacity: 1; }
+            80% { transform: translateY(66px) scale(1); opacity: 1; }
+            100% { transform: translateY(66px) scale(1); opacity: 0; }
+        }
+
+
+        /* 2. 파우치 수납 모션 (검은 플라스틱/버클 완전히 제거됨) */
+        .pouch-scene {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .realistic-pouch {
+            width: 210px;
+            height: 135px;
+            background: linear-gradient(135deg, #a8c8e8 0%, #7da9d6 100%);
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            border: 2px solid #bcd6f0;
+            overflow: hidden;
+        }
+
+        .pouch-strap {
+            position: absolute;
+            top: 48%;
+            left: 0;
+            width: 100%;
+            height: 24px;
+            background: linear-gradient(90deg, #d1d5db 0%, #f3f4f6 50%, #d1d5db 100%);
+            border-top: 1px solid #9ca3af;
+            border-bottom: 1px solid #9ca3af;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 4;
+        }
+        .pouch-label-tag {
+            background: #ffffff;
+            color: #1e3a8a;
+            font-size: 8px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid #cbd5e1;
+        }
+
+        .pouch-flap-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 52%;
+            background: linear-gradient(180deg, #d2e6ff 0%, #9cbce9 100%);
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            border-bottom: 2px dashed #475569;
+            transform-origin: top;
+            z-index: 6;
+            animation: cleanFlapAnim 3.2s infinite ease-in-out;
+        }
+        @keyframes cleanFlapAnim {
+            0%, 15% { transform: rotateX(0deg); }
+            35%, 65% { transform: rotateX(-120deg); }
+            85%, 100% { transform: rotateX(0deg); }
+        }
+
+        .pouch-interior {
+            position: absolute;
+            top: 25px;
+            left: 10px;
+            right: 10px;
+            height: 85px;
+            background: #151c28;
+            border-radius: 8px;
+            z-index: 2;
+        }
+
+        /* 쏙 들어가는 올화이트 배터리 */
+        .letter-battery {
+            position: absolute;
+            width: 95px;
+            height: 55px;
+            background: linear-gradient(145deg, #ffffff 0%, #d8e2ed 100%);
+            border-radius: 6px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+            opacity: 0;
+            z-index: 3;
+            animation: cleanSlideAnim 3.2s infinite ease-in-out;
+        }
+
+        @keyframes cleanSlideAnim {
+            0% { transform: translate(-90px, -45px) rotate(-15deg); opacity: 0; }
+            15% { opacity: 0; }
+            28% { transform: translate(-30px, -20px) rotate(-8deg); opacity: 1; }
+            50% { transform: translate(5px, 12px) rotate(0deg); opacity: 1; z-index: 3; }
+            80% { transform: translate(5px, 12px) rotate(0deg); opacity: 1; z-index: 3; }
+            100% { transform: translate(5px, 12px) rotate(0deg); opacity: 0; }
+        }
+
+        .action-btns {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .home-btn, .consignment-btn, .next-step-btn {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--panel-line);
+            padding: 16px 35px;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: inherit;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .home-btn:hover { border-color: var(--glow); color: var(--glow); }
+        .consignment-btn, .next-step-btn {
+            background: var(--accent);
+            color: #0e121b;
+            border: none;
+            box-shadow: 0 0 20px rgba(198, 232, 106, 0.3);
+        }
+        .consignment-btn:hover, .next-step-btn:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(198, 232, 106, 0.55); }
+
+        @media (max-width: 640px) {
+            .kiosk-container { padding: 30px 16px; border-radius: 24px; }
+            .title-text { font-size: 26px !important; }
+            .sub-text { font-size: 15px; margin-bottom: 20px; }
+            .airline-grid { grid-template-columns: repeat(2, 1fr); }
+            .result-box { padding: 25px 16px; }
+            .home-btn, .consignment-btn, .next-step-btn { padding: 14px 25px; font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="kiosk-container">
+
+        <!-- [화면 1] 첫 화면 -->
+        <div id="screen-welcome" class="screen active">
+            <div class="title-text"><span class="hl">보조배터리</span>를 올려주세요.</div>
+            <div class="sub-text">항공사 선택하기 또는 아래에 티켓 바코드를 인식해주세요.</div>
+
+            <div class="airline-grid">
+                <button class="airline-btn" onclick="selectAirline('대한항공')">대한항공</button>
+                <button class="airline-btn" onclick="selectAirline('아시아나항공')">아시아나항공</button>
+                <button class="airline-btn" onclick="selectAirline('제주항공')">제주항공</button>
+                <button class="airline-btn" onclick="selectAirline('진에어')">진에어</button>
+                <button class="airline-btn" onclick="selectAirline('이스타항공')">이스타항공</button>
+                <button class="airline-btn" onclick="selectAirline('에미레이트항공')">에미레이트항공</button>
+                <button class="airline-btn" onclick="selectAirline('카타르항공')">카타르항공</button>
+                <button class="airline-btn" onclick="selectAirline('비엣젯항공')">비엣젯항공</button>
+            </div>
+
+            <div class="camera-container">
+                <video id="camera-feed" autoplay playsinline muted></video>
+                <div class="viewfinder"></div>
+                <div class="camera-guide" id="camera-guide">이곳에 탑승권을 비춰주세요</div>
+            </div>
+        </div>
+
+        <!-- [화면 2] 배터리 스캔 대기 -->
+        <div id="screen-battery" class="screen">
+            <div class="selected-airline-label" id="display-airline">OO항공</div>
+            <div class="title-text"><span class="hl">배터리</span>를 스캔하고 있습니다.</div>
+            <div class="sub-text">잠시만 기다려주세요.</div>
+
+            <div class="test-btn-group">
+                <button class="test-btn" onclick="startScan(true)">테스트: 반입 가능</button>
+                <button class="test-btn" onclick="startScan(false)">테스트: 반입 불가</button>
+            </div>
+        </div>
+
+        <!-- [화면 3] 판독 로딩 -->
+        <div id="screen-loading" class="screen">
+            <div class="loader"></div>
+            <div class="title-text" style="font-size: 28px;">배터리 규정이 맞습니다.<br><span class="hl">하단에서 스티커와 파우치가 배출 중입니다.</span></div>
+            <div class="sub-text">잠시만 기다려주세요.</div>
+        </div>
+
+        <!-- [화면 4-1] 합격 스텝 1 : 단자 테이프 부착 -->
+        <div id="screen-pass-step1" class="screen">
+            <div class="result-box">
+                <div class="title-text" style="font-size: 28px;">스티커와 파우치가 배출되었습니다.<br><span class="hl">스티커를 단자에 부착해주세요.</span></div>
+                
+                <div class="animation-stage">
+                    <div class="powerbank-3d">
+                        <div class="ports-area">
+                            <div class="real-usb-port"></div>
+                            <div class="real-c-port"></div>
+                        </div>
+                        <div class="smooth-tape"></div>
+                    </div>
+                </div>
+
+                <span class="action-info">빨간 테두리 단자 부위에 검은색 절연테이프(스티커)를 부착합니다.</span>
+            </div>
+            <button class="next-step-btn" onclick="showScreen('screen-pass-step2')">다음으로</button>
+        </div>
+
+        <!-- [화면 4-2] 합격 스텝 2 : 파우치 수납 -->
+        <div id="screen-pass-step2" class="screen">
+            <div class="result-box">
+                <div class="title-text" style="font-size: 28px;"><span class="hl">파우치에 배터리를 넣어주세요.</span></div>
+                
+                <div class="animation-stage">
+                    <div class="pouch-scene">
+                        <div class="realistic-pouch">
+                            <div class="pouch-interior"></div>
+                            <div class="letter-battery"></div>
+                            <div class="pouch-flap-top"></div>
+                            <div class="pouch-strap">
+                                <span class="pouch-label-tag">FIREPROOF LRG SAFE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <span class="action-info">방염 파우치를 열고 올화이트 배터리를 깔끔하게 수납합니다.</span>
+            </div>
+            <button class="next-step-btn" onclick="showScreen('screen-welcome')">완료하기</button>
+        </div>
+
+        <!-- [화면 5] 불합격 -->
+        <div id="screen-fail" class="screen">
+            <div class="result-box">
+                <div class="title-text">이 배터리는 <span class="hl">기내에 반입할 수 없습니다.</span></div>
+                <div class="sub-text" style="margin-bottom: 0;">
+                    보관함을 이용해주세요.
+                </div>
+            </div>
+            <div class="action-btns">
+                <button class="home-btn" onclick="showScreen('screen-welcome')">처음으로</button>
+                <button class="consignment-btn" onclick="goToConsignment()">보관함 위치</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        var cameraStream = null;
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(function (s) {
+                s.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+
+            if (screenId === 'screen-welcome') {
+                startCamera();
+            } else {
+                stopCamera();
+            }
+        }
+
+        function startCamera() {
+            var guide = document.getElementById('camera-guide');
+
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                guide.innerText = "카메라를 사용할 수 없는 환경입니다.";
+                return;
+            }
+
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+                .then(function (stream) {
+                    cameraStream = stream;
+                    document.getElementById('camera-feed').srcObject = stream;
+                    guide.innerText = "이곳에 탑승권을 비춰주세요";
+                })
+                .catch(function (err) {
+                    console.error("카메라 접근 불가:", err);
+                    guide.innerText = "카메라 권한을 허용해주세요.";
+                });
+        }
+
+        function stopCamera() {
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(function (t) { t.stop(); });
+                cameraStream = null;
+            }
+        }
+
+        function selectAirline(airlineName) {
+            document.getElementById('display-airline').innerText = airlineName;
+            showScreen('screen-battery');
+        }
+
+        function startScan(isPass) {
+            showScreen('screen-loading');
+            setTimeout(function () {
+                if (isPass) {
+                    showScreen('screen-pass-step1');
+                } else {
+                    showScreen('screen-fail');
+                }
+            }, 2800);
+        }
+
+        function goToConsignment() {
+            alert("공항 내 가까운 보관함 위치 안내 페이지로 이동합니다.");
+            showScreen('screen-welcome');
+        }
+
+        window.addEventListener('load', startCamera);
+    </script>
+
+</body>
+</html>
