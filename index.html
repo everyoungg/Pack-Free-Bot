@@ -184,7 +184,7 @@
             font-weight: 500;
         }
 
-        /* 3D 애니메이션 스테이지 (그래픽 삐져나옴 방지용 overflow: hidden 적용) */
+        /* 3D 애니메이션 스테이지 */
         .animation-stage {
             width: 100%;
             height: 250px;
@@ -200,7 +200,7 @@
             perspective: 900px;
         }
 
-        /* 1. 배터리 단자 테이프 부착 모션 (잔상/오류 원인 클래스 분리 및 정리) */
+        /* 1. 단자 테이프 부착 모션 (오류 검은 박스 원천 차단) */
         .powerbank-3d {
             width: 230px;
             height: 110px;
@@ -263,7 +263,7 @@
             box-shadow: inset 0 2px 3px rgba(0,0,0,0.8);
         }
 
-        /* 깔끔하게 떨어지는 절연 테이프 */
+        /* 시작할 때 투명하게 숨겨져 있다가 위에서 자연스럽게 내려오는 테이프 */
         .smooth-tape {
             position: absolute;
             right: 15px;
@@ -278,7 +278,8 @@
         }
         @keyframes cleanTapeAnim {
             0% { transform: translateY(-70px) scale(1.1); opacity: 0; }
-            30% { transform: translateY(66px) scale(1); opacity: 1; }
+            20% { opacity: 1; }
+            35% { transform: translateY(66px) scale(1); opacity: 1; }
             80% { transform: translateY(66px) scale(1); opacity: 1; }
             100% { transform: translateY(66px) scale(1); opacity: 0; }
         }
@@ -292,7 +293,7 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            overflow: hidden; /* 그래픽 누수 원천 차단 */
+            overflow: hidden;
         }
         .realistic-pouch {
             width: 210px;
@@ -302,7 +303,7 @@
             position: relative;
             box-shadow: 0 15px 35px rgba(0,0,0,0.4);
             border: 2px solid #bcd6f0;
-            overflow: hidden; /* 파우치 내부 요소가 밖으로 튀어나가지 않도록 제한 */
+            overflow: hidden;
         }
         .pouch-strap {
             position: absolute;
@@ -369,6 +370,7 @@
             z-index: 2;
         }
 
+        /* 시작할 때 투명하게 숨겨져 있다가 자연스럽게 진입하는 배터리 */
         .letter-battery {
             position: absolute;
             width: 95px;
@@ -381,6 +383,7 @@
         }
         @keyframes cleanSlideAnim {
             0% { transform: translate(-90px, -45px) rotate(-15deg); opacity: 0; }
+            15% { opacity: 0; }
             28% { transform: translate(-30px, -20px) rotate(-8deg); opacity: 1; }
             50% { transform: translate(5px, 12px) rotate(0deg); opacity: 1; z-index: 3; }
             80% { transform: translate(5px, 12px) rotate(0deg); opacity: 1; z-index: 3; }
