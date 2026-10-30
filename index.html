@@ -51,7 +51,7 @@
         }
 
         .title-text {
-            font-size: 42px;
+            font-size: 38px;
             font-weight: 800;
             letter-spacing: -1px;
             margin-bottom: 15px;
@@ -59,40 +59,37 @@
         }
         .hl { color: var(--accent); }
         .sub-text {
-            font-size: 22px;
+            font-size: 20px;
             color: var(--text-sub);
-            margin-bottom: 35px;
+            margin-bottom: 30px;
         }
 
         .airline-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
             margin-bottom: 30px;
             background: var(--panel);
             border: 1px solid var(--panel-line);
             border-radius: 22px;
-            padding: 22px;
+            padding: 20px;
         }
         .airline-btn {
             background: #ffffff;
             border: 2px solid transparent;
-            border-radius: 16px;
-            padding: 18px 20px;
-            font-size: 20px;
+            border-radius: 14px;
+            padding: 14px 10px;
+            font-size: 16px;
             font-weight: 700;
             color: #12304f;
             cursor: pointer;
-            width: calc(50% - 8px);
-            max-width: 200px;
             font-family: inherit;
             transition: all 0.25s ease;
         }
         .airline-btn:hover {
             background: var(--accent);
             color: #0e121b;
-            box-shadow: 0 0 22px rgba(198, 232, 106, 0.45);
+            box-shadow: 0 0 18px rgba(198, 232, 106, 0.45);
             transform: translateY(-2px);
         }
 
@@ -100,7 +97,7 @@
             position: relative;
             width: 280px;
             max-width: 100%;
-            height: 180px;
+            height: 160px;
             margin: 0 auto;
             background: #05070c;
             border-radius: 20px;
@@ -123,7 +120,7 @@
             bottom: 10px;
             width: 100%;
             color: #ffffff;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             z-index: 2;
         }
@@ -133,14 +130,14 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 15px;
-            margin-top: 50px;
+            margin-top: 30px;
         }
         .test-btn {
             background: var(--panel);
             color: var(--text);
             border: 1px solid var(--panel-line);
-            padding: 16px 30px;
-            font-size: 18px;
+            padding: 14px 25px;
+            font-size: 16px;
             font-weight: 600;
             font-family: inherit;
             border-radius: 15px;
@@ -154,37 +151,143 @@
             background: var(--panel);
             border: 1px solid var(--accent);
             color: var(--accent);
-            padding: 10px 30px;
+            padding: 8px 24px;
             border-radius: 30px;
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 700;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .loader {
-            width: 80px; height: 80px;
+            width: 70px; height: 70px;
             border: 4px solid rgba(143, 211, 255, 0.2);
             border-top: 4px solid var(--accent);
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 40px auto;
+            margin: 0 auto 30px auto;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
         .result-box {
             background: var(--panel);
-            padding: 50px 40px;
+            padding: 40px 30px;
             border-radius: 24px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             border: 1px solid var(--panel-line);
         }
         #screen-fail .title-text .hl { color: var(--danger); }
         .action-info {
             color: var(--glow);
-            font-size: 18px;
-            margin-top: 25px;
+            font-size: 17px;
+            margin-top: 20px;
             display: block;
             font-weight: 500;
+        }
+
+        /* 애니메이션 시각화 영역 스타일 */
+        .animation-stage {
+            width: 100%;
+            height: 220px;
+            background: #111622;
+            border-radius: 16px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--panel-line);
+        }
+
+        /* 스티커 부착 모션용 배터리 & 테이프 스타일 */
+        .powerbank-white {
+            width: 180px;
+            height: 90px;
+            background: #f0f4f8;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            padding-left: 15px;
+        }
+        .powerbank-white::after {
+            content: '';
+            position: absolute;
+            right: 15px;
+            width: 35px;
+            height: 40px;
+            background: #2b3548;
+            border-radius: 6px;
+        }
+        .black-tape {
+            position: absolute;
+            right: 10px;
+            top: 20px;
+            width: 45px;
+            height: 50px;
+            background: #111;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            animation: tapeAction 2s infinite ease-in-out;
+        }
+        @keyframes tapeAction {
+            0% { transform: translateY(-40px) scale(1.1); opacity: 0; }
+            40% { transform: translateY(0) scale(1); opacity: 1; }
+            80% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        /* 파우치 투입 모션 스타일 */
+        .pouch-container-anim {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .pouch-img-box {
+            width: 140px;
+            height: 100px;
+            background: #d4e2f0;
+            border-radius: 8px;
+            border: 2px solid #8fd3ff;
+            background-image: url('image_5d697e.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .pouch-flap {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 35%;
+            background: rgba(255, 255, 255, 0.85);
+            border-bottom: 2px dashed #444;
+            transform-origin: top;
+            animation: openFlap 3s infinite ease-in-out;
+        }
+        @keyframes openFlap {
+            0%, 20% { transform: rotateX(0deg); }
+            40%, 60% { transform: rotateX(-75deg); }
+            80%, 100% { transform: rotateX(0deg); }
+        }
+        .moving-battery {
+            width: 60px;
+            height: 35px;
+            background: #2b3548;
+            border-radius: 6px;
+            position: absolute;
+            left: 30px;
+            animation: insertBattery 3s infinite ease-in-out;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+        @keyframes insertBattery {
+            0% { transform: translateX(-60px) scale(0.8); opacity: 0; }
+            30% { transform: translateX(0) scale(1); opacity: 1; }
+            60% { transform: translateX(50px) scale(0.9); opacity: 1; }
+            80%, 100% { transform: translateX(50px) scale(0.5); opacity: 0; }
         }
 
         .action-btns {
@@ -193,12 +296,12 @@
             justify-content: center;
             gap: 20px;
         }
-        .home-btn, .consignment-btn {
+        .home-btn, .consignment-btn, .next-step-btn {
             background: transparent;
             color: var(--text);
             border: 2px solid var(--panel-line);
-            padding: 18px 45px;
-            font-size: 20px;
+            padding: 16px 35px;
+            font-size: 18px;
             font-weight: 700;
             font-family: inherit;
             border-radius: 50px;
@@ -206,21 +309,22 @@
             transition: all 0.3s;
         }
         .home-btn:hover { border-color: var(--glow); color: var(--glow); }
-        .consignment-btn {
+        .consignment-btn, .next-step-btn {
             background: var(--accent);
             color: #0e121b;
             border: none;
             box-shadow: 0 0 20px rgba(198, 232, 106, 0.3);
         }
-        .consignment-btn:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(198, 232, 106, 0.55); }
+        .consignment-btn:hover, .next-step-btn:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(198, 232, 106, 0.55); }
 
         /* 모바일 대응 */
         @media (max-width: 640px) {
-            .kiosk-container { padding: 36px 20px; border-radius: 28px; }
-            .title-text { font-size: 28px !important; }
-            .sub-text { font-size: 16px; margin-bottom: 24px; }
-            .result-box { padding: 30px 20px; }
-            .home-btn, .consignment-btn { padding: 15px 30px; font-size: 17px; }
+            .kiosk-container { padding: 30px 16px; border-radius: 24px; }
+            .title-text { font-size: 26px !important; }
+            .sub-text { font-size: 15px; margin-bottom: 20px; }
+            .airline-grid { grid-template-columns: repeat(2, 1fr); }
+            .result-box { padding: 25px 16px; }
+            .home-btn, .consignment-btn, .next-step-btn { padding: 14px 25px; font-size: 16px; }
         }
     </style>
 </head>
@@ -238,6 +342,10 @@
                 <button class="airline-btn" onclick="selectAirline('아시아나항공')">아시아나항공</button>
                 <button class="airline-btn" onclick="selectAirline('제주항공')">제주항공</button>
                 <button class="airline-btn" onclick="selectAirline('진에어')">진에어</button>
+                <button class="airline-btn" onclick="selectAirline('이스타항공')">이스타항공</button>
+                <button class="airline-btn" onclick="selectAirline('에미레이트항공')">에미레이트항공</button>
+                <button class="airline-btn" onclick="selectAirline('카타르항공')">카타르항공</button>
+                <button class="airline-btn" onclick="selectAirline('비엣젯항공')">비엣젯항공</button>
             </div>
 
             <div class="camera-container">
@@ -250,7 +358,7 @@
         <!-- [화면 2] 배터리 스캔 대기 -->
         <div id="screen-battery" class="screen">
             <div class="selected-airline-label" id="display-airline">OO항공</div>
-            <div class="title-text" style="font-size: 38px;"><span class="hl">배터리</span>를 스캔하고 있습니다.</div>
+            <div class="title-text"><span class="hl">배터리</span>를 스캔하고 있습니다.</div>
             <div class="sub-text">잠시만 기다려주세요.</div>
 
             <div class="test-btn-group">
@@ -259,23 +367,46 @@
             </div>
         </div>
 
-        <!-- [화면 3] 판독 로딩 -->
+        <!-- [화면 3] 판독 로딩 (배출 중 안내 포함) -->
         <div id="screen-loading" class="screen">
             <div class="loader"></div>
-            <div class="title-text" style="font-size: 32px;"><span class="hl">배터리 규정</span>을 확인하고 있습니다...</div>
+            <div class="title-text" style="font-size: 28px;">배터리 규정이 맞습니다.<br><span class="hl">하단에서 스티커와 파우치가 배출 중입니다.</span></div>
             <div class="sub-text">잠시만 기다려주세요.</div>
         </div>
 
-        <!-- [화면 4] 합격 -->
-        <div id="screen-pass" class="screen">
+        <!-- [화면 4-1] 합격 스텝 1 : 절연테이프 부착 -->
+        <div id="screen-pass-step1" class="screen">
             <div class="result-box">
-                <div class="title-text">이 배터리는 <span class="hl">규정에 맞습니다.</span></div>
-                <div class="sub-text" style="margin-bottom: 0;">
-                    스티커를 배터리에 붙여주시고<br>파우치에 넣어주세요.
+                <div class="title-text" style="font-size: 28px;">스티커와 파우치가 배출되었습니다.<br><span class="hl">스티커를 단자에 부착해주세요.</span></div>
+                
+                <div class="animation-stage">
+                    <div class="powerbank-white">
+                        <div class="black-tape"></div>
+                    </div>
                 </div>
-                <span class="action-info">기기 하단에서 파우치와 스티커가 배출되었습니다.<br>스티커를 충전단자에 붙이고 파우치에 보조배터리를 넣어주세요.</span>
+
+                <span class="action-info">고급형 보조배터리 단자부에 절연 테이프를 부착하는 중입니다.</span>
             </div>
-            <button class="home-btn" onclick="showScreen('screen-welcome')">처음으로 돌아가기</button>
+            <button class="next-step-btn" onclick="showScreen('screen-pass-step2')">다음으로</button>
+        </div>
+
+        <!-- [화면 4-2] 합격 스텝 2 : 파우치 투입 -->
+        <div id="screen-pass-step2" class="screen">
+            <div class="result-box">
+                <div class="title-text" style="font-size: 28px;"><span class="hl">파우치에 배터리를 넣어주세요.</span></div>
+                
+                <div class="animation-stage">
+                    <div class="pouch-container-anim">
+                        <div class="pouch-img-box">
+                            <div class="pouch-flap"></div>
+                        </div>
+                        <div class="moving-battery"></div>
+                    </div>
+                </div>
+
+                <span class="action-info">안전 방염 파우치 내부에 배터리를 수납합니다.</span>
+            </div>
+            <button class="next-step-btn" onclick="showScreen('screen-welcome')">완료하기</button>
         </div>
 
         <!-- [화면 5] 불합격 -->
@@ -313,7 +444,6 @@
         function startCamera() {
             var guide = document.getElementById('camera-guide');
 
-            // HTTPS가 아니거나 카메라를 지원하지 않는 환경에서도 화면이 멈추지 않도록 처리
             if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
                 guide.innerText = "카메라를 사용할 수 없는 환경입니다.";
                 return;
@@ -346,8 +476,12 @@
         function startScan(isPass) {
             showScreen('screen-loading');
             setTimeout(function () {
-                showScreen(isPass ? 'screen-pass' : 'screen-fail');
-            }, 2500);
+                if (isPass) {
+                    showScreen('screen-pass-step1');
+                } else {
+                    showScreen('screen-fail');
+                }
+            }, 2800);
         }
 
         function goToConsignment() {
