@@ -187,7 +187,7 @@
         /* 3D 입체 애니메이션 스테이지 */
         .animation-stage {
             width: 100%;
-            height: 240px;
+            height: 250px;
             background: radial-gradient(circle at center, #1b263b 0%, #0d1b2a 100%);
             border-radius: 18px;
             margin: 20px 0;
@@ -197,23 +197,22 @@
             position: relative;
             overflow: hidden;
             border: 1px solid var(--panel-line);
-            perspective: 800px;
+            perspective: 900px;
         }
 
-        /* 1. 입체 흰색 보조배터리 및 빨간 단자 가이드 + 테이프 부착 모션 스타일 */
+        /* 1. 자연스러운 단자 테이프 부착 모션 */
         .powerbank-3d {
             width: 220px;
             height: 110px;
             background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
             border-radius: 16px;
             position: relative;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 2px 5px rgba(255,255,255,0.8);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
             display: flex;
             align-items: center;
             padding-left: 20px;
-            transform: rotateX(10deg) rotateY(-10deg);
+            transform: rotateX(8deg) rotateY(-8deg);
         }
-        /* 액정 표시부 */
         .powerbank-3d::before {
             content: '';
             position: absolute;
@@ -222,15 +221,13 @@
             height: 50px;
             background: #111;
             border-radius: 8px;
-            box-shadow: inset 0 0 5px rgba(255,255,255,0.2);
         }
-        /* 단자 영역 (참조 이미지의 빨간 박스 매칭) */
         .ports-area {
             position: absolute;
             right: 20px;
             width: 75px;
             height: 55px;
-            border: 3px solid #ff4d4d;
+            border: 3px solid #ff4d4d; /* 빨간 테두리 단자부 가이드 */
             border-radius: 10px;
             background: #f8fafc;
             display: flex;
@@ -238,7 +235,7 @@
             justify-content: center;
             align-items: center;
             gap: 6px;
-            box-shadow: 0 0 12px rgba(255, 77, 77, 0.4);
+            box-shadow: 0 0 15px rgba(255, 77, 77, 0.5);
         }
         .port-usb, .port-c {
             width: 45px;
@@ -248,28 +245,28 @@
         }
         .port-c { width: 25px; height: 8px; }
 
-        /* 내려앉는 검은색 절연 테이프 */
-        .realistic-tape {
+        /* 매끄럽게 부착되는 절연 테이프 애니메이션 */
+        .smooth-tape {
             position: absolute;
-            right: 15px;
-            top: -50px;
-            width: 85px;
-            height: 65px;
+            right: 18px;
+            top: -60px;
+            width: 79px;
+            height: 59px;
             background: linear-gradient(135deg, #222 0%, #000 100%);
             border-radius: 6px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-            animation: tapeDropAndStick 2.5s infinite ease-in-out;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+            animation: smoothTapeAttach 3s infinite cubic-bezier(0.25, 1, 0.5, 1);
             z-index: 10;
         }
-        @keyframes tapeDropAndStick {
-            0% { transform: translateY(-70px) scale(1.1); opacity: 0; }
-            35% { transform: translateY(68px) scale(1); opacity: 1; } /* 정확히 빨간 단자부 위에 안착 */
-            75% { transform: translateY(68px) scale(1); opacity: 1; }
-            100% { transform: translateY(68px) scale(1); opacity: 0; }
+        @keyframes smoothTapeAttach {
+            0% { transform: translateY(-80px) rotate(-5deg) scale(1.1); opacity: 0; }
+            30% { transform: translateY(67px) rotate(0deg) scale(1); opacity: 1; } /* 정확히 빨간 단자부에 착지 */
+            75% { transform: translateY(67px) rotate(0deg) scale(1); opacity: 1; }
+            100% { transform: translateY(67px) rotate(0deg) scale(1); opacity: 0; }
         }
 
 
-        /* 2. 현실적인 파우치 (첫 번째/세 번째 사진 스타일 반영) 및 편지 투입 모션 */
+        /* 2. 자연스러운 파우치 수납 (편지 넣기 식) 모션 */
         .pouch-scene {
             width: 100%;
             height: 100%;
@@ -278,22 +275,18 @@
             align-items: center;
             position: relative;
         }
-        
-        /* 하늘색 방염 파우치 본체 */
         .realistic-pouch {
-            width: 200px;
-            height: 130px;
+            width: 210px;
+            height: 135px;
             background: linear-gradient(135deg, #a8c8e8 0%, #7da9d6 100%);
             border-radius: 12px;
             position: relative;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
             border: 2px solid #bcd6f0;
-            overflow: visible;
         }
-        /* 파우치 중앙의 은색 벨크로 스트랩 및 로고 라벨 */
         .pouch-strap {
             position: absolute;
-            top: 45%;
+            top: 48%;
             left: 0;
             width: 100%;
             height: 24px;
@@ -316,67 +309,64 @@
         }
         .pouch-buckle {
             position: absolute;
-            right: 60px;
-            top: 38%;
+            right: 50px;
+            top: 40%;
             width: 16px;
             height: 38px;
             background: #1e293b;
             border-radius: 3px;
             z-index: 5;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.4);
         }
 
-        /* 열리는 상단 플랩 (덮개) */
+        /* 부드럽게 열리는 덮개(Flap) */
         .pouch-flap-top {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 50%;
-            background: linear-gradient(180deg, #c5deff 0%, #9bc2ec 100%);
+            height: 52%;
+            background: linear-gradient(180deg, #d2e6ff 0%, #9cbce9 100%);
             border-top-left-radius: 12px;
             border-top-right-radius: 12px;
             border-bottom: 2px dashed #475569;
             transform-origin: top;
-            transition: transform 0.4s ease;
             z-index: 6;
-            animation: flapOpenClose 3s infinite ease-in-out;
+            animation: letterPouchOpenClose 3.2s infinite cubic-bezier(0.4, 0, 0.2, 1);
         }
-        @keyframes flapOpenClose {
+        @keyframes letterPouchOpenClose {
             0%, 15% { transform: rotateX(0deg); }
-            30%, 65% { transform: rotateX(-110deg); } /* 파우치가 열림 */
+            35%, 65% { transform: rotateX(-120deg); } /* 입구가 탁 열림 */
             85%, 100% { transform: rotateX(0deg); }
         }
 
-        /* 파우치 내부 입구 (열렸을 때 보이는 어두운 안감 포켓) */
         .pouch-interior {
             position: absolute;
             top: 25px;
             left: 10px;
             right: 10px;
-            height: 80px;
-            background: #1e293b;
+            height: 85px;
+            background: #151c28;
             border-radius: 8px;
             z-index: 2;
         }
 
-        /* 편지 봉투처럼 쏙 미끄러져 들어가는 배터리 모션 */
-        .sliding-battery {
+        /* 편지 봉투에 쏙 들어가는 배터리 모션 */
+        .letter-battery {
             position: absolute;
-            width: 90px;
+            width: 95px;
             height: 55px;
-            background: linear-gradient(135deg, #334155 0%, #0f172a 100%);
-            border-radius: 8px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            background: linear-gradient(135deg, #475569 0%, #1e293b 100%);
+            border-radius: 6px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.6);
             z-index: 3;
-            animation: letterSlideIn 3s infinite ease-in-out;
+            animation: letterSlideSmooth 3.2s infinite cubic-bezier(0.4, 0, 0.2, 1);
         }
-        @keyframes letterSlideIn {
-            0% { transform: translate(-90px, -40px) rotate(-15deg); opacity: 0; }
-            25% { transform: translate(-30px, -20px) rotate(-5deg); opacity: 1; } /* 파우치 입구 상단 대기 */
-            50% { transform: translate(0px, 15px) rotate(0deg); opacity: 1; z-index: 3; } /* 파우치 안으로 쏙 들어감 */
-            75% { transform: translate(0px, 15px) rotate(0deg); opacity: 1; z-index: 3; }
-            100% { transform: translate(0px, 15px) rotate(0deg); opacity: 0; }
+        @keyframes letterSlideSmooth {
+            0% { transform: translate(-100px, -50px) rotate(-15deg); opacity: 0; }
+            28% { transform: translate(-35px, -25px) rotate(-8deg); opacity: 1; } /* 입구 대기 */
+            50% { transform: translate(5px, 12px) rotate(0deg); opacity: 1; z-index: 3; } /* 파우치 내부로 부드럽게 쏙 진입 */
+            75% { transform: translate(5px, 12px) rotate(0deg); opacity: 1; z-index: 3; }
+            100% { transform: translate(5px, 12px) rotate(0deg); opacity: 0; }
         }
 
 
@@ -464,7 +454,7 @@
             <div class="sub-text">잠시만 기다려주세요.</div>
         </div>
 
-        <!-- [화면 4-1] 합격 스텝 1 : 절연테이프 단자 부착 (입체 모션) -->
+        <!-- [화면 4-1] 합격 스텝 1 : 절연테이프 단자 부착 (입체 자연스러운 모션) -->
         <div id="screen-pass-step1" class="screen">
             <div class="result-box">
                 <div class="title-text" style="font-size: 28px;">스티커와 파우치가 배출되었습니다.<br><span class="hl">스티커를 단자에 부착해주세요.</span></div>
@@ -475,16 +465,16 @@
                             <div class="port-usb"></div>
                             <div class="port-c"></div>
                         </div>
-                        <div class="realistic-tape"></div>
+                        <div class="smooth-tape"></div>
                     </div>
                 </div>
 
-                <span class="action-info">보조배터리 단자 부위에 검은색 절연테이프(스티커)를 완벽히 밀착합니다[cite: 3].</span>
+                <span class="action-info">빨간 테두리 단자 부위에 검은색 절연테이프(스티커)를 부착합니다[cite: 3].</span>
             </div>
             <button class="next-step-btn" onclick="showScreen('screen-pass-step2')">다음으로</button>
         </div>
 
-        <!-- [화면 4-2] 합격 스텝 2 : 파우치 수납 (편지 넣기 식 입체 모션) -->
+        <!-- [화면 4-2] 합격 스텝 2 : 파우치 수납 (편지 넣기 모션) -->
         <div id="screen-pass-step2" class="screen">
             <div class="result-box">
                 <div class="title-text" style="font-size: 28px;"><span class="hl">파우치에 배터리를 넣어주세요.</span></div>
@@ -493,7 +483,7 @@
                     <div class="pouch-scene">
                         <div class="realistic-pouch">
                             <div class="pouch-interior"></div>
-                            <div class="sliding-battery"></div>
+                            <div class="letter-battery"></div>
                             <div class="pouch-flap-top"></div>
                             <div class="pouch-strap">
                                 <span class="pouch-label-tag">FIREPROOF LRG SAFE</span>
@@ -503,12 +493,12 @@
                     </div>
                 </div>
 
-                <span class="action-info">안전 방염 파우치를 열고 배터리를 편지 넣듯 깔끔하게 수납합니다[cite: 2].</span>
+                <span class="action-info">방염 파우치를 열고 배터리를 편지처럼 깔끔하게 수납합니다[cite: 2].</span>
             </div>
             <button class="next-step-btn" onclick="showScreen('screen-welcome')">완료하기</button>
         </div>
 
-        <!-- [화면 5] 불합격 -->
+        <!-- [화면 5] 불합격 (요청대로 위탁서비스 내용 삭제 및 보관함 위치 버튼 생성) -->
         <div id="screen-fail" class="screen">
             <div class="result-box">
                 <div class="title-text">이 배터리는 <span class="hl">기내에 반입할 수 없습니다.</span></div>
@@ -584,7 +574,7 @@
         }
 
         function goToConsignment() {
-            alert("보관함 위치 확인.");
+            alert("공항 내 가까운 보관함 위치 안내 페이지로 이동합니다.");
             showScreen('screen-welcome');
         }
 
