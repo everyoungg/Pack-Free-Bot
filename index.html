@@ -414,12 +414,12 @@
             <div class="result-box">
                 <div class="title-text">이 배터리는 <span class="hl">기내에 반입할 수 없습니다.</span></div>
                 <div class="sub-text" style="margin-bottom: 0;">
-                    보관함이나 위탁서비스를 이용해주세요.
+                    보관함을 이용해주세요.
                 </div>
             </div>
             <div class="action-btns">
                 <button class="home-btn" onclick="showScreen('screen-welcome')">처음으로</button>
-                <button class="consignment-btn" onclick="goToConsignment()">위탁서비스 이용하기</button>
+                <button class="consignment-btn" onclick="goToConsignment()">보관함 위치</button>
             </div>
         </div>
 
@@ -485,7 +485,7 @@
         }
 
         function goToConsignment() {
-            alert("물품 보관 및 위탁 서비스 접수 화면으로 이동합니다.");
+            alert("보관함 위치 확인.");
             showScreen('screen-welcome');
         }
 
